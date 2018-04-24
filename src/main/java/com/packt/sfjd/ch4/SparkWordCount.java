@@ -15,9 +15,10 @@ import scala.Tuple2;
 	
 public class SparkWordCount {
 	public static void main(String[] args) throws Exception {
+		System.setProperty("hadoop.home.dir", "/media/uranadh/part21/yarn/hadoop-2.7.4");
 		System.out.println(System.getProperty("hadoop.home.dir"));
-		String inputPath = args[0];
-		String outputPath = args[1];
+		String inputPath = "/media/uranadh/part21/spark/test/input";
+		String outputPath = "/media/uranadh/part21/spark/test/output";
 		FileUtils.deleteQuietly(new File(outputPath));
 
 		JavaSparkContext sc = new JavaSparkContext("local", "sparkwordcount");

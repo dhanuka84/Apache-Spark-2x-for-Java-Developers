@@ -19,17 +19,22 @@ public final class JavaWordCount {
 
   public static void main(String[] args) throws Exception {
 
-    if (args.length < 1) {
+   /* if (args.length < 1) {
       System.err.println("Usage: JavaWordCount <file>");
       System.exit(1);
-    }
+    }*/
+	  
+	  System.setProperty("hadoop.home.dir", "/media/uranadh/part21/yarn/hadoop-2.7.4");
+		System.out.println(System.getProperty("hadoop.home.dir"));
 
     SparkSession spark = SparkSession
       .builder()
-      .appName("JavaWordCount")
+      .appName("JavaWordCount").master("local")
       .getOrCreate();
+    
+    String inputPath = "/media/uranadh/part21/spark/test/input/words.txt";
 
-    JavaRDD<String> lines = spark.read().textFile(args[0]).javaRDD();
+    JavaRDD<String> lines = spark.read().textFile(inputPath).javaRDD();
 
     JavaRDD<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
       @Override
